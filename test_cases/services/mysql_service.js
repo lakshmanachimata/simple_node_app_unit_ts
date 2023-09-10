@@ -23,7 +23,7 @@ const initDB = (host , user ,password,database,dialect,storage)  => {
 const initModels = (sequelize) => {
    User = UserModel(sequelize)
 }
-const connectDb = async (host , user ,password,database,dialect,storage) => {
+const connectSDb = async (host , user ,password,database,dialect,storage) => {
       const sequelize = initDB(host , user ,password,database,dialect, storage)
       try {
         await sequelize.authenticate();
@@ -49,4 +49,4 @@ const getAllUsers = async () => {
     console.log("getAllUsers error: " + error.message)
   }
 }
-module.exports = {connectDb, addNewUser, getAllUsers}
+module.exports = {connectSDb, addNewUser, getAllUsers}

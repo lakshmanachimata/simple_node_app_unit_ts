@@ -1,4 +1,4 @@
-const { addNewUser, connectDb, getAllUsers } = require('./mysql_service');
+const { addNewUser, connectSDb, getAllUsers } = require('./mysql_service');
 const User  = require('../models/mongo_user');
 require('dotenv').config();
 
@@ -12,7 +12,7 @@ describe('SQL service', () => {
     }
 
     beforeAll(async () => {
-        sqlClient = await connectDb("" , "" ,"","testdb","sqlite","memory");
+        sqlClient = await connectSDb("" , "" ,"","testdb","sqlite","memory");
     });
 
     afterAll(async () => {

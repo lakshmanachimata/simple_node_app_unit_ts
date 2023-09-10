@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { addNewUser, connectDb, getAllUsers } = require('./mongo_service');
+const { addNewUser, connectMDb, getAllUsers } = require('./mongo_service');
 const User  = require('../models/mongo_user');
 require('dotenv').config();
 
@@ -13,7 +13,7 @@ describe('MongoDB service', () => {
     }
 
     beforeAll(async () => {
-        mongoClient = await connectDb(process.env.MONGO_URL + '/' + process.env.DBNAME);
+        mongoClient = await connectMDb(process.env.MONGO_URL + '/' + process.env.DBNAME);
     });
 
     afterAll(async () => {
