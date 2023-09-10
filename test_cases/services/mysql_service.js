@@ -3,8 +3,7 @@ const UserModel = require('../models/mysql_user');
 let User
 const initDB = (host , user ,password,database,dialect,storage)  => {
   if(dialect == 'sqlite') {
-    const sequelize = new Sequelize('sqlite::memory:');
-    console.log("SQLite Database memory is being created")
+    const sequelize = new Sequelize('sqlite::memory:',{logging :false});
     initModels(sequelize)
     sequelize.sync()  
     return sequelize;
@@ -13,6 +12,7 @@ const initDB = (host , user ,password,database,dialect,storage)  => {
       host: host,
       dialect: dialect, /* one of 'mysql' | 'postgres' | 'sqlite' | 'mariadb' | 'mssql' | 'db2' | 'snowflake' | 'oracle' */
       storage : storage,
+      logging:false
     });
     initModels(sequelize)
     sequelize.sync()  
