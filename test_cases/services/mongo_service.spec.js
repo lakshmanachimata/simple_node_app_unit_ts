@@ -8,8 +8,8 @@ describe('MongoDB service', () => {
     let mongoClient;
 
     const user  = {
-        name: 'A brand new project',
-        description: 'This is a project in my system.'
+        name: 'Lakshmana',
+        age:40
     }
 
     beforeAll(async () => {

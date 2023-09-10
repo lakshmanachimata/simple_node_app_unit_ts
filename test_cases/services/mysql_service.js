@@ -1,24 +1,52 @@
 const { Sequelize } = require('sequelize');
-const User = require('../models/sql_user');
-const connectDb = async (host , user ,password,database) => {
+const UserModel = require('../models/mysql_user');
+let User
+const initDB = (host , user ,password,database,dialect,storage)  => {
+  if(dialect == 'sqlite') {
+    const sequelize = new Sequelize('sqlite::memory:');
+    console.log("SQLite Database memory is being created")
+    initModels(sequelize)
+    sequelize.sync()  
+    return sequelize;
+  }else {
     const sequelize = new Sequelize( database, user, password, {
-        host: host,
-        dialect: 'mysql' /* one of 'mysql' | 'postgres' | 'sqlite' | 'mariadb' | 'mssql' | 'db2' | 'snowflake' | 'oracle' */
-      });
+      host: host,
+      dialect: dialect, /* one of 'mysql' | 'postgres' | 'sqlite' | 'mariadb' | 'mssql' | 'db2' | 'snowflake' | 'oracle' */
+      storage : storage,
+    });
+    initModels(sequelize)
+    sequelize.sync()  
+    return sequelize;
+  }
+}
+
+const initModels = (sequelize) => {
+   User = UserModel(sequelize)
+}
+const connectDb = async (host , user ,password,database,dialect,storage) => {
+      const sequelize = initDB(host , user ,password,database,dialect, storage)
       try {
         await sequelize.authenticate();
         console.log('Connection has been established successfully.');
         return sequelize
       } catch (error) {
         console.error('Unable to connect to the database:', error);
+        return null;
       }
 }
 const addNewUser = async (inuser) => {
-    const user = User.build({ name: inuser.name,age : inuser.age });
-    await user.save();
+  try{
+    const user = await User.create({ name: inuser.name,age : inuser.age });
+  }catch(error){
+    console.log("addNewUser error: " + error.message)
+  }
 }
 const getAllUsers = async () => {
+  try {
     const users = await User.findAll();
     return users;
+  }catch(error){
+    console.log("getAllUsers error: " + error.message)
+  }
 }
 module.exports = {connectDb, addNewUser, getAllUsers}

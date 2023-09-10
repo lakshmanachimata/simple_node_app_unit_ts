@@ -17,7 +17,7 @@ const addNewUser = async (inuser) => {
     await user.save();
 }
 const getAllUsers = async () => {
-    const users = await User.findAll();
+    const users = await User.find()
     return users;
 }
 module.exports = {connectDb, addNewUser, getAllUsers}

@@ -7,25 +7,26 @@ describe('SQL service', () => {
     let sqlClient;
 
     const user  = {
-        name: 'A brand new project',
-        description: 'This is a project in my system.'
+        name: 'lakshmana',
+        age: 40
     }
 
     beforeAll(async () => {
-        sqlClient = await connectDb(process.env.MONGO_URL + '/' + process.env.DBNAME);
+        sqlClient = await connectDb("" , "" ,"","testdb","sqlite","memory");
     });
 
     afterAll(async () => {
+        await sqlClient.drop();
         await sqlClient.close();
     });
 
     afterEach(async () => {
-        await sqlClient.drop();
+        // await sqlClient.drop();
     });
 
     describe('SQL', () => {
         test('SQL DB Connection Success',() => {
-            expect(sqlClient.connection).not.toEqual(null);
+            expect(sqlClient).not.toEqual(null);
         });
     });
 
