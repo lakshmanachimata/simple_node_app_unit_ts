@@ -1,0 +1,23 @@
+var mongoose = require('mongoose');
+const User = require('../models/mongo_user');
+const connectDb = async (url) => {
+    try {
+        const con = await mongoose.connect(url,{
+            useNewUrlParser: true,
+            useFindAndModify: false,
+            useUnifiedTopology: true
+        })
+        return con
+    }catch(e) { 
+        return null;
+    }
+}
+const addNewUser = async (inuser) => {
+    const user = User({ name: inuser.name,age : inuser.age });
+    await user.save();
+}
+const getAllUsers = async () => {
+    const users = await User.findAll();
+    return users;
+}
+module.exports = {connectDb, addNewUser, getAllUsers}
