@@ -4,24 +4,21 @@ const sequelize = {}
 const getSequelize = () => {return sequelize}
 
 const initDB = (host , user ,password,database,dialect,storage)  => {
+  let lsequelize;
   if(dialect == 'sqlite') {
-    const lsequelize = new Sequelize('sqlite::memory:',{logging :false});
-    initModels(lsequelize)
-    lsequelize.sync()
-    Object.assign(sequelize,lsequelize)  
-    return lsequelize;
+    lsequelize = new Sequelize('sqlite::memory:',{logging :false});
   }else {
-    const lsequelize = new Sequelize( database, user, password, {
+    lsequelize = new Sequelize( database, user, password, {
       host: host,
       dialect: dialect, /* one of 'mysql' | 'postgres' | 'sqlite' | 'mariadb' | 'mssql' | 'db2' | 'snowflake' | 'oracle' */
       storage : storage,
       logging:false
     });
-    initModels(lsequelize)
-    lsequelize.sync()  
-    Object.assign(sequelize,lsequelize)  
-    return lsequelize;
   }
+  initModels(lsequelize)
+  lsequelize.sync()  
+  Object.assign(sequelize,lsequelize)  
+  return lsequelize;
 }
 
 const initModels = (sequelize) => {
