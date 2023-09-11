@@ -1,4 +1,4 @@
-const { addNewUser, connectSDb, getAllUsers } = require('./mysql_service');
+const { addNewUser, connectSDb, getAllUsers } = require('./mysql_repo');
 const User  = require('../models/mongo_user');
 require('dotenv').config();
 

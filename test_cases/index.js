@@ -1,8 +1,8 @@
 const http = require('http');
 const express = require('express');
 const app = express();
-const mongo = require('./services/mongo_service');
-const mysql = require('./services/mysql_service');
+const mongo = require('./repo/mongo_repo');
+const mysql = require('./repo/mysql_repo');
 require('dotenv').config();
 const server = http.createServer(app);
 
@@ -32,13 +32,11 @@ const initSQL = async () => {
   await connectToDB('sql');
   await mysql.addNewUser({name : "lakshmana", age : 40})
   const users = await mysql.getAllUsers()
-  console.log("users are ")
 }
 const initMongo = async () => {
   await connectToDB('mongo');
   await mongo.addNewUser({name : "lakshmana", age : 40})
   const users = await mongo.getAllUsers()
-  console.log("users are ")
 }
 initSQL();
 initMongo();

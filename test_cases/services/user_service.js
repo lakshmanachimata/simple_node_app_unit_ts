@@ -1,5 +1,5 @@
-const SQLUserSvc = require('./mysql_service');
-const MongoUserSvc = require('./mongo_service');
+const SQLUserSvc = require('../repo/mysql_repo');
+const MongoUserSvc = require('../repo/mongo_repo');
 
 const getAllUsers = async(dbtype) => {
     if(dbtype == 1) {

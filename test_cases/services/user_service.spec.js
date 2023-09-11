@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const { connectMDb } = require('./mongo_service');
-const { connectSDb } = require('./mysql_service');
+const { connectMDb } = require('../repo/mongo_repo');
+const { connectSDb } = require('../repo/mysql_repo');
 const { addNewUser, getAllUsers } = require('./user_service');
 
 require('dotenv').config();
