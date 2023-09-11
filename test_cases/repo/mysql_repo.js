@@ -1,7 +1,7 @@
 const { Sequelize } = require('sequelize');
 const UserModel = require('../models/mysql_user');
 const sequelize = {}
-const getSequelize = () => {return sequelize}
+// const getSequelize = () => {return sequelize}
 
 const initDB = (host , user ,password,database,dialect,storage)  => {
   let lsequelize;
