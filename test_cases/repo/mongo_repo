@@ -13,11 +13,22 @@ const connectMDb = async (url) => {
     }
 }
 const addNewUser = async (inuser) => {
-    const user = User({ name: inuser.name,age : inuser.age });
-    await user.save();
+    try {
+        const user = User({ name: inuser.name,age : inuser.age });
+        await user.save();
+        return user;
+    } catch(e) {
+        return undefined;
+    }
+
 }
 const getAllUsers = async () => {
-    const users = await User.find()
-    return users;
+    try {
+        const users = await User.find()
+        return users;
+    } catch(e) { 
+        return undefined;
+    }
+
 }
 module.exports = {connectMDb, addNewUser, getAllUsers}

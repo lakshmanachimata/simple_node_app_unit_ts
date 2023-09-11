@@ -3,18 +3,16 @@ const MongoUserSvc = require('../repo/mongo_repo');
 
 const getAllUsers = async(dbtype) => {
     if(dbtype == 1) {
-        const users = await SQLUserSvc.getAllUsers()
-        return users;
+        return await SQLUserSvc.getAllUsers()
     }else {
-        const users = await MongoUserSvc.getAllUsers()
-        return users;
+        return await MongoUserSvc.getAllUsers()
     }
 }
 const addNewUser = async(user,dbtype) => {
     if(dbtype == 1) {
-        await SQLUserSvc.addNewUser(user)
+       return await SQLUserSvc.addNewUser(user)
     }else {
-        await MongoUserSvc.addNewUser(user)
+       return await MongoUserSvc.addNewUser(user)
     }
 }
 module.exports = {addNewUser, getAllUsers}

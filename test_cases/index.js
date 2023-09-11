@@ -1,44 +1,17 @@
 const http = require('http');
 const express = require('express');
+const { initDB } = require('./database/database');
+const { initRoutes } = require('./routes/routes');
 const app = express();
-const mongo = require('./repo/mongo_repo');
-const mysql = require('./repo/mysql_repo');
 require('dotenv').config();
-const server = http.createServer(app);
 
-const connectToDB = async (type) => {
-  if(type === 'sql') {
-    let sqlClient = await mysql.connectSDb(process.env.SQL_DBHOST, process.env.SQL_DBUSER, process.env.SQL_DBPASSWORD, process.env.SQL_DBNAME, 'mysql','')
-    if(!sqlClient) {
-      console.error("SQL DB connection failed")
-    }
-    // server.listen(process.env.PORT, process.env.HOST, () => {
-    //   console.log(`Server running at http://${process.env.HOST}:${process.env.PORT}/`);
-    // });
-    return sqlClient
-  }else {
-    let mongoClient = await mongo.connectMDb(process.env.MONGO_URL + '/' + process.env.DBNAME)
-    if(!mongoClient) {
-      console.error("Mongo DB connection failed")
-    }
-    server.listen(process.env.PORT, process.env.HOST, () => {
-      console.log(`Server running at http://${process.env.HOST}:${process.env.PORT}/`);
-    });
-    return mongoClient
-  }
-}
+const initSetup = async() => {
+  await initDB()
+  await initRoutes(app)
+  app.listen({ port: process.env.PORT || 4000 }, () => {
+    console.log("server listening on port " + process.env.PORT)
+    return app;
+  });
+};
 
-const initSQL = async () => {
-  await connectToDB('sql');
-  await mysql.addNewUser({name : "lakshmana", age : 40})
-  const users = await mysql.getAllUsers()
-}
-const initMongo = async () => {
-  await connectToDB('mongo');
-  await mongo.addNewUser({name : "lakshmana", age : 40})
-  const users = await mongo.getAllUsers()
-}
-initSQL();
-initMongo();
-
-
+initSetup();
