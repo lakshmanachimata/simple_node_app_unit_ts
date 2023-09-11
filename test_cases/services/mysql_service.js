@@ -1,27 +1,31 @@
 const { Sequelize } = require('sequelize');
 const UserModel = require('../models/mysql_user');
-let User
+const sequelize = {}
+const getSequelize = () => {return sequelize}
+
 const initDB = (host , user ,password,database,dialect,storage)  => {
   if(dialect == 'sqlite') {
-    const sequelize = new Sequelize('sqlite::memory:',{logging :false});
-    initModels(sequelize)
-    sequelize.sync()  
-    return sequelize;
+    const lsequelize = new Sequelize('sqlite::memory:',{logging :false});
+    initModels(lsequelize)
+    lsequelize.sync()
+    Object.assign(sequelize,lsequelize)  
+    return lsequelize;
   }else {
-    const sequelize = new Sequelize( database, user, password, {
+    const lsequelize = new Sequelize( database, user, password, {
       host: host,
       dialect: dialect, /* one of 'mysql' | 'postgres' | 'sqlite' | 'mariadb' | 'mssql' | 'db2' | 'snowflake' | 'oracle' */
       storage : storage,
       logging:false
     });
-    initModels(sequelize)
-    sequelize.sync()  
-    return sequelize;
+    initModels(lsequelize)
+    lsequelize.sync()  
+    Object.assign(sequelize,lsequelize)  
+    return lsequelize;
   }
 }
 
 const initModels = (sequelize) => {
-   User = UserModel(sequelize)
+   UserModel(sequelize)
 }
 const connectSDb = async (host , user ,password,database,dialect,storage) => {
       const sequelize = initDB(host , user ,password,database,dialect, storage)
@@ -35,14 +39,14 @@ const connectSDb = async (host , user ,password,database,dialect,storage) => {
 }
 const addNewUser = async (inuser) => {
   try{
-    const user = await User.create({ name: inuser.name,age : inuser.age });
+    const user = await sequelize.models.User.create({ name: inuser.name,age : inuser.age });
   }catch(error){
     console.log("addNewUser error: " + error.message)
   }
 }
 const getAllUsers = async () => {
   try {
-    const users = await User.findAll();
+    const users = await sequelize.models.User.findAll();
     return users;
   }catch(error){
     console.log("getAllUsers error: " + error.message)

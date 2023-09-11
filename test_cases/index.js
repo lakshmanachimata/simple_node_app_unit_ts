@@ -8,7 +8,7 @@ const server = http.createServer(app);
 
 const connectToDB = async (type) => {
   if(type === 'sql') {
-    let sqlClient = await mysql.connectDb(process.env.SQL_DBHOST, process.env.SQL_DBUSER, process.env.SQL_DBPASSWORD, process.env.SQL_DBNAME, 'mysql','')
+    let sqlClient = await mysql.connectSDb(process.env.SQL_DBHOST, process.env.SQL_DBUSER, process.env.SQL_DBPASSWORD, process.env.SQL_DBNAME, 'mysql','')
     if(!sqlClient) {
       console.error("SQL DB connection failed")
     }
@@ -17,7 +17,7 @@ const connectToDB = async (type) => {
     // });
     return sqlClient
   }else {
-    let mongoClient = await mongo.connectDb(process.env.MONGO_URL + '/' + process.env.DBNAME)
+    let mongoClient = await mongo.connectMDb(process.env.MONGO_URL + '/' + process.env.DBNAME)
     if(!mongoClient) {
       console.error("Mongo DB connection failed")
     }
