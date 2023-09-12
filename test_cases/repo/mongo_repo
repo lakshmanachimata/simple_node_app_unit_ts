@@ -18,16 +18,16 @@ const addNewUser = async (inuser) => {
         await user.save();
         return user;
     } catch(e) {
-        return undefined;
+        return {undefined, e};
     }
 
 }
 const getAllUsers = async () => {
     try {
         const users = await User.find()
-        return users;
+        return {users, undefined};
     } catch(e) { 
-        return undefined;
+        return {undefined, e};
     }
 
 }

@@ -1,14 +1,17 @@
 const Joi =  require("joi")
 
 
- const adduserobj = {
-    body : Joi.object({
-        name : Joi.string().required(),
-        age : Joi.number().integer().required()
-    })
-    
- } 
+ const adduserobj =Joi.object({
+    name : Joi.string().required(),
+    age : Joi.number().integer().required()
+})
+
+
+ const adduservalidate = { 
+    body : adduserobj
+ }
+
 module.exports = {
-    adduserobj
+    adduservalidate
 } 
 

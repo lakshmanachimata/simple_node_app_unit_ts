@@ -6,10 +6,6 @@ require('dotenv').config();
 describe('SQL service', () => {
     let sqlClient;
 
-    const user  = {
-        name: 'lakshmana',
-        age: 40
-    }
 
     beforeAll(async () => {
         sqlClient = await connectSDb("" , "" ,"","testdb","sqlite","memory");
@@ -32,10 +28,15 @@ describe('SQL service', () => {
 
     describe('Users', () => {
         test('Add new user and get all users', async () => {
+            const user  = {
+                name: 'Lakshmana',
+                age:40
+            }
+        
             await addNewUser(user);
             await addNewUser(user);
             let users = await getAllUsers();
-            expect(users.length).toBe(2);
+            expect(users.users.length).toBe(2);
         });
     });
 });

@@ -39,15 +39,16 @@ const addNewUser = async (inuser) => {
     return await sequelize.models.User.create({ name: inuser.name,age : inuser.age });
   }catch(error){
     console.log("addNewUser error: " + error.message)
-    return undefined;
+    return {undefined, error};
   }
 }
 const getAllUsers = async () => {
   try {
-    return await sequelize.models.User.findAll();
+    let users =  await sequelize.models.User.findAll();
+    return {users, undefined};
   }catch(error){
     console.log("getAllUsers error: " + error.message)
-    return undefined; 
+    return {undefined, error};
   }
 }
 module.exports = {connectSDb, addNewUser, getAllUsers}

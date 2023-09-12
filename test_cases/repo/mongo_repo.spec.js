@@ -7,11 +7,6 @@ require('dotenv').config();
 describe('MongoDB service', () => {
     let mongoClient;
 
-    const user  = {
-        name: 'Lakshmana',
-        age:40
-    }
-
     beforeAll(async () => {
         mongoClient = await connectMDb(process.env.MONGO_URL + '/' + process.env.DBNAME);
     });
@@ -32,10 +27,15 @@ describe('MongoDB service', () => {
 
     describe('Users', () => {
         test('Add new user and get all users', async () => {
+            const user  = {
+                name: 'Lakshmana',
+                age:40
+            }
+        
             await addNewUser(user);
             await addNewUser(user);
             let users = await getAllUsers();
-            expect(users.length).toBe(2);
+            expect(users.users.length).toBe(2);
         });
     });
 });

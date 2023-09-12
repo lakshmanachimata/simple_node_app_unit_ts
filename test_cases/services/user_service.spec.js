@@ -9,11 +9,6 @@ require('dotenv').config();
 describe('MongoDB service', () => {
     let mongoClient;
 
-    const user  = {
-        name: 'Lakshmana',
-        age:40
-    }
-
     beforeAll(async () => {
         mongoClient = await connectMDb(process.env.MONGO_URL + '/' + process.env.DBNAME);
     });
@@ -32,12 +27,17 @@ describe('MongoDB service', () => {
         });
     });
 
-    describe('Users', () => {
+    describe('Users add success', () => {
         test('Add new user and get all users', async () => {
+            const user  = {
+                name: 'Lakshmana',
+                age:40
+            }
+        
             await addNewUser(user,2);
             await addNewUser(user,2);
             let users = await getAllUsers(2);
-            expect(users.length).toBe(2);
+            expect(users.users.length).toBe(2);
         });
     });
 });
@@ -70,12 +70,17 @@ describe('SQL service', () => {
         });
     });
 
-    describe('Users', () => {
+
+    describe('Users add success', () => {
         test('Add new user and get all users', async () => {
+            const user  = {
+                name: 'Lakshmana',
+                age:40
+            }        
             await addNewUser(user,1);
             await addNewUser(user,1);
             let users = await getAllUsers(1);
-            expect(users.length).toBe(2);
+            expect(users.users.length).toBe(2);
         });
     });
 });
