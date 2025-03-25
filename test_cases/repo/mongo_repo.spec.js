@@ -25,7 +25,7 @@ describe('MongoDB service', () => {
         });
     });
 
-    describe('Users', () => {
+    describe('Add Users', () => {
         test('Add new user and get all users', async () => {
             const user  = {
                 name: 'Lakshmana',
