@@ -43,6 +43,24 @@ const addNewUser = async (inuser) => {
     return {undefined, error};
   }
 }
+
+const updateUser = async (inuser) => {
+  try{
+    let user =  await sequelize.models.User.findByPk(inuser.id);
+    if(user) {
+      user.name = inuser.name;
+      user.age = inuser.age;
+      await user.save();
+    }else{
+      return undefined;
+    }
+    return user;
+  }catch(error){
+    console.log("updateUser error: " + error.message)
+    return {undefined, error};
+  }
+}
+
 const getAllUsers = async () => {
   try {
     let users =  await sequelize.models.User.findAll();
@@ -52,4 +70,20 @@ const getAllUsers = async () => {
     return {undefined, error};
   }
 }
-module.exports = {connectSDb, addNewUser, getAllUsers}
+
+const deleteUser = async (id) => {
+  try {
+    let user =  await sequelize.models.User.findByPk(id);
+    if(user) {
+      await user.destroy();
+    }else{
+      return undefined;
+    }
+    return user;
+  }catch(error){
+    console.log("deleteUser error: " + error.message)
+    return {undefined, error};
+  }
+}
+
+module.exports = {connectSDb, addNewUser, getAllUsers,updateUser,deleteUser}

@@ -17,4 +17,25 @@ const addNewUser = async(user,dbtype) => {
        return uUser;
     }
 }
-module.exports = {addNewUser, getAllUsers}
+
+const updateUser = async(user,dbtype) => {
+    if(dbtype == 1) {
+       let uUser =  await SQLUserRepo.updateUser(user)
+       return uUser;
+    }else {
+       let uUser  = await MongoUserRepo.updateUser(user)
+       return uUser;
+    }
+}
+
+const deleteUser = async(id,dbtype) => {
+    if(dbtype == 1) {
+       let uUser =  await SQLUserRepo.deleteUser(id)
+       return uUser;
+    }else {
+       let uUser  = await MongoUserRepo.deleteUser(id)
+       return uUser;
+    }
+}
+
+module.exports = {addNewUser, getAllUsers,updateUser, deleteUser}
