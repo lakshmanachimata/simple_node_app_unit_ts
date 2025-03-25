@@ -10,9 +10,11 @@ const getAllUsers = async(dbtype) => {
 }
 const addNewUser = async(user,dbtype) => {
     if(dbtype == 1) {
-       return await SQLUserRepo.addNewUser(user)
+       let uUser =  await SQLUserRepo.addNewUser(user)
+       return uUser;
     }else {
-       return await MongoUserRepo.addNewUser(user)
+       let uUser  = await MongoUserRepo.addNewUser(user)
+       return uUser;
     }
 }
 module.exports = {addNewUser, getAllUsers}

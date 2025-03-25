@@ -36,7 +36,8 @@ const connectSDb = async (host , user ,password,database,dialect,storage) => {
 }
 const addNewUser = async (inuser) => {
   try{
-    return await sequelize.models.User.create({ name: inuser.name,age : inuser.age });
+    let user =  await sequelize.models.User.create({ name: inuser.name,age : inuser.age });
+    return user;
   }catch(error){
     console.log("addNewUser error: " + error.message)
     return {undefined, error};

@@ -53,9 +53,9 @@ module.exports = function (app) {
      */
     app.route('/api/v1/user/adduser').post(async (req, res) => {
 
-        const { userdata , error = ""} =  await usersvc.addNewUser(req.body,1)
-        if(userdata) {
-            return res.status(200).json({status : 1})
+        const user =  await usersvc.addNewUser(req.body,1)
+        if(user) {
+            return res.status(200).json({status : 1, user : user})
         }else {
             return res.status(200).json({status : 0, message : error.message? error.message : "error"})
         }
