@@ -5,7 +5,7 @@ require('dotenv').config();
 
 const connectToDB = async (type) => {
   if(type === 'sql') {
-    let sqlClient = await mysql.connectSDb(process.env.SQL_DBHOST, process.env.SQL_DBUSER, process.env.SQL_DBPASSWORD, process.env.SQL_DBNAME, 'mysql','')
+    let sqlClient = await mysql.connectSDb(process.env.SQL_DBHOST, process.env.SQL_DBUSER, process.env.SQL_DBPASSWORD, process.env.SQL_DBNAME, 'sqlite','')
     if(!sqlClient) {
       console.error("SQL DB connection failed")
     }

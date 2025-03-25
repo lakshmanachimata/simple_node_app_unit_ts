@@ -26,6 +26,8 @@
     "mongoose": "^5.12.13",
     "mysql2": "^3.6.1",
     "sequelize": "^6.33.0",
-    "sqlite3": "^5.1.6"
+    "sqlite3": "^5.1.6",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
   }
 }
